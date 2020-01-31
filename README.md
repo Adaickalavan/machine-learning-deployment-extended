@@ -1,6 +1,4 @@
-# Scalable Deployment
-
-See [website](https://adaickalavan.github.io/portfolio/scalable_deployment_kubernetes/) for information.
+# Machine Learning Deployment Extended
 
 In this project, we develop a real-time video analytics pipeline (i.e., machine learning on a video stream). Video will be ingested from IP cameras into a Kafka queue and processed by one or more machine learning models. The predictions are imprinted onto the frames. Processed frames are queued again into another Kafka topic and then broadcasted to the web for display. 
 
@@ -22,3 +20,5 @@ The following tools are used in this project:
 
 The complete system design and data flow of this project is illustrated by the following image.
 <br/><img src="./assets/microservices_01.jpg" width="80%"/>
+
+See [website](https://adaickalavan.github.io/portfolio/machine_learning_deployment/) for more information.
