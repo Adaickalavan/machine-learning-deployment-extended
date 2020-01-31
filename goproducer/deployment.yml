@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: goproducer
   annotations:
-      contact: adaickalavan <adaickalavan.meiyappan@sg.panasonic.com> 
+      contact: adaickalavan <adaickalavan@gmail.com> 
 
 spec:
   replicas: 1

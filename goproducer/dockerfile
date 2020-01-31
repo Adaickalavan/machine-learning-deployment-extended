@@ -12,11 +12,7 @@ WORKDIR /src
 # Fetch dependencies first; they are less susceptible to change on every build
 # and will therefore be cached for speeding up the next build
 COPY ./go.mod ./go.sum ./
-RUN export HTTP_PROXY=http://10.77.8.70:8080/ \
-    && export HTTPS_PROXY=http://10.77.8.70:8080/ \ 
-    && go mod download \
-    && unset HTTP_PROXY \
-    && unset HTTPS_PROXY
+RUN go mod download
 
 # Copy the local package files (from development computer) to the container's workspace (docker image)
 COPY . .

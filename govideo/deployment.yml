@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: govideo
   annotations:
-      contact: adaickalavan <adaickalavan.meiyappan@sg.panasonic.com> 
+      contact: adaickalavan <adaickalavan@gmail.com> 
 
 spec:
   replicas: 1
@@ -40,7 +40,7 @@ spec:
             - name: NODEPORT
               value: :30163  
             - name: FRAMEINTERVAL
-              value: "10ms"     
+              value: "42ms"     
           resources:
 
 ---
