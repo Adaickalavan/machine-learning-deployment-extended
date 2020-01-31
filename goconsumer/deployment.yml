@@ -1,0 +1,60 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: goconsumer
+  annotations:
+      contact: adaickalavan <adaickalavan@gmail.com> 
+
+spec:
+  replicas: 1
+  
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+
+  selector:
+    matchLabels:
+      app: goconsumer
+
+  template:
+    metadata:
+      name: goconsumer
+      labels:
+        app: goconsumer
+    spec:
+      containers:
+        - name: goconsumer
+          image: goconsumer
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TOPICNAMEIN
+              value: videocam
+            - name: TOPICNAMEOUT
+              value: videodisplay  
+            - name: KAFKAPORTIN
+              value: kf1-service:19094
+            - name: KAFKAPORTOUT
+              value: kf1-service:19093  
+            - name: GROUPNAME
+              value: goconsumer 
+            - name: COMPRESSIONTYPE
+              value: gzip  
+          envFrom:
+            - configMapRef:
+                name: models-configmap    
+          resources:
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: models-configmap
+data:
+  MODELURLS: |
+    {"imagenet_1":"http://tfserving-service:8501/v1/models/tfModel:predict",
+    "imagenet_2":"http://tfserving-service:8501/v1/models/tfModel:predict"}            
+  LABELURLS: |
+    {"imagenet_1":"/go/src/app/assets/imagenetLabels.json",
+    "imagenet_2":"/go/src/app/assets/imagenetLabels.json"}  

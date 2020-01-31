@@ -1,0 +1,33 @@
+FROM golang AS baseimage
+
+# Author label
+LABEL Author Adaickalavan Meiyappan
+
+# Copy over private key, and set permissions
+# Warning! Anyone who gets their hands on this image will be able
+# to retrieve this private key file from the corresponding image layer
+# COPY ./root/.ssh /root/.ssh
+
+# # Create empty file for known_hosts
+# RUN touch /root/.ssh/known_hosts
+
+# # Add GitLab key
+# RUN ssh-keyscan http://xx.xx.xx.xx >> /root/.ssh/known_hosts
+
+# Set the working directory outside $GOPATH to enable the support for modules.
+WORKDIR /src
+
+# Clone the conf files into the docker container
+RUN git clone https://github.com/Adaickalavan/emotion-recognition.git
+
+# Multistage build
+FROM tensorflow/serving
+
+# Author label
+LABEL Author Adaickalavan Meiyappan
+
+# Copy model data to the container's model folder
+COPY --from=baseimage /src/emotion-recognition/tfserving/cnn /models/tfModel 
+
+# Add environment variable
+ENV MODEL_NAME tfModel

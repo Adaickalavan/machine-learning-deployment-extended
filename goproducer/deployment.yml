@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: goproducer
+  annotations:
+      contact: adaickalavan <adaickalavan.meiyappan@sg.panasonic.com> 
+
+spec:
+  replicas: 1
+  
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+
+  selector:
+    matchLabels:
+      app: goproducer
+
+  template:
+    metadata:
+      name: goproducer
+      labels:
+        app: goproducer
+    spec:
+      containers:
+        - name: goproducer
+          image: goproducer
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TOPICNAME
+              value: videocam
+            - name: KAFKAPORT
+              value: kf1-service:19092
+            - name: COMPRESSIONTYPE
+              value: gzip   
+            - name: VIDEOLINK
+              value: rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov     
+            - name: FRAMEINTERVAL
+              value: "42ms"   
+          resources:
+

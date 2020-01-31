@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: tfsemonet
+  annotations:
+      contact: adaickalavan <adaickalavan@gmail.com> 
+
+spec:
+  replicas: 2
+
+  strategy: 
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+
+  selector:
+    matchLabels:
+      app: tfsemonet
+
+  template:
+    metadata:
+      name: tfsemonet
+      labels:
+        app: tfsemonet
+    spec:
+      containers:
+        - name: tfsemonet
+          image: tfsemonet
+          imagePullPolicy: IfNotPresent
+          ports:    
+            - name: grpc
+              containerPort: 8500
+            - name: rest
+              containerPort: 8501
+          resources:
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: tfsemonet-service
+  namespace: default
+
+spec:
+  type: LoadBalancer
+
+  selector:
+    app: tfsemonet
+
+  ports:
+    - name: tfsemonet-grpc
+      port: 8500
+    - name: tfsemonet-rest
+      port: 8501
