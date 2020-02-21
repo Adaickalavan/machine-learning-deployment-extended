@@ -21,4 +21,7 @@ The following tools are used in this project:
 The complete system design and data flow of this project is illustrated by the following image.
 <br/><img src="./assets/microservices_01.jpg" width="80%"/>
 
+A sample video output of the system running two tensorflow models, namely, object classification and human facial expression classification, is shown below.
+<img src="./assets/machine_learning_deployment_extended_01.jpg" width="80%"/>
+
 See [website](https://adaickalavan.github.io/portfolio/machine_learning_deployment/) for more information.
